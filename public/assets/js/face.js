@@ -1,80 +1,24 @@
 var captures = [];
+var emotionResults = [];
+
+var subscriptionKey = window.__FACEAPI_KEY__;
+
+var uriBase =
+    "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+
+// Request parameters.
+var params = {
+    "returnFaceId": "true",
+    "returnFaceLandmarks": "false",
+    "returnFaceAttributes":
+        "age,gender,headPose,smile,facialHair,glasses,emotion," +
+        "hair,makeup,occlusion,accessories,blur,exposure,noise"
+};
 
 processImage = function() {
-    // Replace <Subscription Key> with your valid subscription key.
-    var subscriptionKey = window.__FACEAPI_KEY__;
-
-    var uriBase =
-        "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
-
-    // Request parameters.
-    var params = {
-        "returnFaceId": "true",
-        "returnFaceLandmarks": "false",
-        "returnFaceAttributes":
-            "age,gender,headPose,smile,facialHair,glasses,emotion," +
-            "hair,makeup,occlusion,accessories,blur,exposure,noise"
-    };
-
-    var localVideo = document.getElementById("js-local-stream");
-    var localCanvas = document.getElementById("local-canvas");
-    let context = localCanvas.getContext("2d").drawImage(localVideo, 0, 0, 400, 240);
-    captures.push(localCanvas.toDataURL("image/png"));
-
-    const imgURL = makeblob(captures[captures.length-1]);
-
-    // Perform the REST API call.
-    // $.ajax({
-    //     url: uriBase + "?" + $.param(params),
-
-    //     // Request headers.
-    //     beforeSend: function(xhrObj){
-    //         // xhrObj.setRequestHeader("Content-Type","application/json");
-    //         xhrObj.setRequestHeader("Content-Type","application/json");
-    //         xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-    //     },
-
-    //     type: "POST",
-
-    //     // Request body.
-    //     data: '{"url": ' + '"' + sourceImageUrl + '"}',
-    //     // data: imgURL,
-    // })
-
-    // .done(function(data) {
-    //     // Show formatted JSON on webpage.
-    //     // $("#responseTextArea").val(JSON.stringify(data, null, 2));
-    //     console.log(data[0].faceAttributes.emotion);
-    // })
-
-    // .fail(function(jqXHR, textStatus, errorThrown) {
-    //     // Display error message.
-    //     var errorString = (errorThrown === "") ?
-    //         "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-    //     errorString += (jqXHR.responseText === "") ?
-    //         "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
-    //             jQuery.parseJSON(jqXHR.responseText).message :
-    //                 jQuery.parseJSON(jqXHR.responseText).error.message;
-    //     alert(errorString);
-    // });
-
-    axios.post(
-        uriBase + "?" + $.param(params),
-        imgURL,
-        {
-          headers: {
-            "Content-Type": "application/octet-stream",
-            "Ocp-Apim-Subscription-Key": subscriptionKey,
-          }
-        },
-      )
-      .then(response => {
-        console.log(response.data[0].faceAttributes.emotion)
-
-      })
-      .catch(error => {
-        console.log(error.response)
-      });
+    analyzeFace("local");
+    analyzeFace("remote");
+    drawChart();
 };
 
 makeblob = function (dataURL) {
@@ -97,4 +41,68 @@ makeblob = function (dataURL) {
     }
 
     return new Blob([uInt8Array], { type: contentType });
+}
+
+analyzeFace = function (channel) {
+    var video = document.getElementById(`js-${channel}-stream`);
+    var canvas = document.getElementById(`${channel}-canvas`);
+    let context = canvas.getContext("2d").drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    captures.push(canvas.toDataURL("image/png"));
+
+    const imgURL = makeblob(captures[captures.length-1]);
+
+    axios.post(
+        uriBase + "?" + $.param(params),
+        imgURL,
+        {
+          headers: {
+            "Content-Type": "application/octet-stream",
+            "Ocp-Apim-Subscription-Key": subscriptionKey,
+          }
+        },
+      )
+      .then(response => {
+        // console.log(response.data[0].faceAttributes.emotion);
+        if (channel == "local") {
+            emotionResults.push({[channel]: response.data[0].faceAttributes.emotion});
+        } else if (channel == "remote") {
+            emotionResults[emotionResults.length-1].remote = response.data[0].faceAttributes.emotion;
+        }
+
+        console.log(emotionResults);
+      })
+      .catch(error => {
+        console.log(error.response);
+    });
+}
+
+drawChart = function () {
+    var ctx = document.getElementById("emotion-chart").getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'radar',
+
+        // The data for our dataset
+        data: {
+            labels: ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"],
+            datasets: [
+                {
+                    label: "Local Emotion",
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: [0, 10, 5, 2, 20, 30, 45, 50]
+                }, {
+                    label: "Remote Emotion",
+                    // backgroundColor: 'rgb(132, 99, 255)',
+                    borderColor: 'rgb(132, 99, 255)',
+                    data: [0, 15, 15, 12, 2, 3, 45, 5]
+                }
+
+            ]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+    console.log("chart done");
 }

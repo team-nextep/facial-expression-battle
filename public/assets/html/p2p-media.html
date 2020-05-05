@@ -7,29 +7,38 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </head>
   <body>
     <div class="container">
-      <h1 class="heading">P2P Media example</h1>
-      <p class="note">
-        Enter remote peer ID to call.
-      </p>
+      <h1 class="heading">Facial Expression Battle</h1>
+      <p class="note">Enter remote peer ID to start Facial Expression Battle.</p>
+      <p>Your ID: <span id="js-local-id"></span></p>
+      <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
+      <button id="js-call-trigger">Call</button>
+      <button id="js-close-trigger">Close</button>
+      <button onclick="processImage()">Analyze face</button>
+
       <div class="p2p-media">
-        <div class="remote-stream">
-          <video id="js-remote-stream"></video>
-        </div>
         <div class="local-stream">
-          <canvas id="local-canvas"></canvas>
+          <h2>Local</h2>
           <video id="js-local-stream"></video>
-          <p>Your ID: <span id="js-local-id"></span></p>
-          <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
-          <button id="js-call-trigger">Call</button>
-          <button id="js-close-trigger">Close</button>
-          <button onclick="processImage()">Analyze face</button>
+          <canvas id="local-canvas"></canvas>
+        </div>
+        <div class="remote-stream">
+          <h2>Remote</h2>
+          <video id="js-remote-stream"></video>
+          <canvas id="remote-canvas"></canvas>
         </div>
       </div>
+
+      <div class="chart">
+        <canvas id="emotion-chart"></canvas>
+      </div>
+
       <p class="meta" id="js-meta"></p>
     </div>
+
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="/key.js"></script>
     <script src="/assets/js/p2p-media.js"></script>
