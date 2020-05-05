@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SkyWay - P2P Media example</title>
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div class="container">
@@ -17,11 +19,13 @@
           <video id="js-remote-stream"></video>
         </div>
         <div class="local-stream">
+          <canvas id="local-canvas"></canvas>
           <video id="js-local-stream"></video>
           <p>Your ID: <span id="js-local-id"></span></p>
           <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
           <button id="js-call-trigger">Call</button>
           <button id="js-close-trigger">Close</button>
+          <button onclick="processImage()">Analyze face</button>
         </div>
       </div>
       <p class="meta" id="js-meta"></p>
@@ -29,5 +33,6 @@
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="/key.js"></script>
     <script src="/assets/js/p2p-media.js"></script>
+    <script src="/assets/js/face.js"></script>
   </body>
 </html>
