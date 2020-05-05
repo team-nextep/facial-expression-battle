@@ -10,6 +10,7 @@ video {
 canvas {
   background-color: antiquewhite;
   width: 100%;
+  margin-top: 10px;
 }
 
 img {
@@ -49,13 +50,13 @@ img {
 }
 
 .p2p-media .remote-stream {
-  width: 30%;
+  width: 50%;
   height: 30%;
   margin: 10px;
 }
 
 .p2p-media .local-stream {
-  width: 30%;
+  width: 50%;
   height: 30%;
   margin: 10px;
 }

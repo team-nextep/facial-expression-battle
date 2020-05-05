@@ -46,6 +46,8 @@ makeblob = function (dataURL) {
 analyzeFace = function (channel) {
     var video = document.getElementById(`js-${channel}-stream`);
     var canvas = document.getElementById(`${channel}-canvas`);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     let context = canvas.getContext("2d").drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
     captures.push(canvas.toDataURL("image/png"));
 
