@@ -1,83 +1,28 @@
 var captures = [];
+var emotionResults = [];
+var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
 
-processImage = function() {
-    // Replace <Subscription Key> with your valid subscription key.
-    var subscriptionKey = window.__FACEAPI_KEY__;
+var subscriptionKey = window.__FACEAPI_KEY__;
+var targetFacialExpression;
 
-    var uriBase =
-        "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+var uriBase =
+    "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
 
-    // Request parameters.
-    var params = {
-        "returnFaceId": "true",
-        "returnFaceLandmarks": "false",
-        "returnFaceAttributes":
-            "age,gender,headPose,smile,facialHair,glasses,emotion," +
-            "hair,makeup,occlusion,accessories,blur,exposure,noise"
-    };
-
-    var localVideo = document.getElementById("js-local-stream");
-    var localCanvas = document.getElementById("local-canvas");
-    let context = localCanvas.getContext("2d").drawImage(localVideo, 0, 0, 400, 240);
-    captures.push(localCanvas.toDataURL("image/png"));
-
-    const imgURL = makeblob(captures[captures.length-1]);
-
-    // Perform the REST API call.
-    // $.ajax({
-    //     url: uriBase + "?" + $.param(params),
-
-    //     // Request headers.
-    //     beforeSend: function(xhrObj){
-    //         // xhrObj.setRequestHeader("Content-Type","application/json");
-    //         xhrObj.setRequestHeader("Content-Type","application/json");
-    //         xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", subscriptionKey);
-    //     },
-
-    //     type: "POST",
-
-    //     // Request body.
-    //     data: '{"url": ' + '"' + sourceImageUrl + '"}',
-    //     // data: imgURL,
-    // })
-
-    // .done(function(data) {
-    //     // Show formatted JSON on webpage.
-    //     // $("#responseTextArea").val(JSON.stringify(data, null, 2));
-    //     console.log(data[0].faceAttributes.emotion);
-    // })
-
-    // .fail(function(jqXHR, textStatus, errorThrown) {
-    //     // Display error message.
-    //     var errorString = (errorThrown === "") ?
-    //         "Error. " : errorThrown + " (" + jqXHR.status + "): ";
-    //     errorString += (jqXHR.responseText === "") ?
-    //         "" : (jQuery.parseJSON(jqXHR.responseText).message) ?
-    //             jQuery.parseJSON(jqXHR.responseText).message :
-    //                 jQuery.parseJSON(jqXHR.responseText).error.message;
-    //     alert(errorString);
-    // });
-
-    axios.post(
-        uriBase + "?" + $.param(params),
-        imgURL,
-        {
-          headers: {
-            "Content-Type": "application/octet-stream",
-            "Ocp-Apim-Subscription-Key": subscriptionKey,
-          }
-        },
-      )
-      .then(response => {
-        console.log(response.data[0].faceAttributes.emotion)
-
-      })
-      .catch(error => {
-        console.log(error.response)
-      });
+// Request parameters.
+var params = {
+    "returnFaceId": "true",
+    "returnFaceLandmarks": "false",
+    "returnFaceAttributes":
+        "age,gender,headPose,smile,facialHair,glasses,emotion," +
+        "hair,makeup,occlusion,accessories,blur,exposure,noise"
 };
 
-makeblob = function (dataURL) {
+var processImage = function() {
+    decideFacialExpression();
+    countDown();
+};
+
+var makeblob = function (dataURL) {
     var BASE64_MARKER = ';base64,';
     if (dataURL.indexOf(BASE64_MARKER) == -1) {
         var parts = dataURL.split(',');
@@ -97,4 +42,127 @@ makeblob = function (dataURL) {
     }
 
     return new Blob([uInt8Array], { type: contentType });
+}
+
+var analyzeFace = function (channel) {
+    var video = document.getElementById(`js-${channel}-stream`);
+    var canvas = document.getElementById(`${channel}-canvas`);
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    let context = canvas.getContext("2d").drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    captures.push(canvas.toDataURL("image/png"));
+
+    let imgURL = makeblob(captures[captures.length-1]);
+
+    axios.post(
+        uriBase + "?" + $.param(params),
+        imgURL,
+        {
+          headers: {
+            "Content-Type": "application/octet-stream",
+            "Ocp-Apim-Subscription-Key": subscriptionKey,
+          }
+        },
+      )
+      .then(response => {
+        // console.log(response.data[0].faceAttributes.emotion);
+        if (channel == "local") {
+            emotionResults.push({[channel]: response.data[0].faceAttributes.emotion});
+            analyzeFace("remote");
+        } else if (channel == "remote") {
+            emotionResults[emotionResults.length-1].remote = response.data[0].faceAttributes.emotion;
+            drawChart();
+            judgeBattleResult();
+        }
+
+        console.log(emotionResults);
+      })
+      .catch(error => {
+        console.log(error.response);
+    });
+}
+
+var drawChart = function () {
+    var localChartData = [];
+    var remoteChartData = [];
+
+    var localLatestEmotion = emotionResults[emotionResults.length-1].local
+    var remoteLatestEmotion = emotionResults[emotionResults.length-1].remote
+
+    for (var key in localLatestEmotion) {
+        if (localLatestEmotion.hasOwnProperty(key)) {
+            localChartData.push(localLatestEmotion[key]);
+            remoteChartData.push(remoteLatestEmotion[key]);
+        }
+    }
+
+    var ctx = document.getElementById("emotion-chart").getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'radar',
+
+        // The data for our dataset
+        data: {
+            labels: facialExpressionLabel,
+            datasets: [
+                {
+                    label: "Local Emotion",
+                    // backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: localChartData
+                }, {
+                    label: "Remote Emotion",
+                    // backgroundColor: 'rgb(132, 99, 255)',
+                    borderColor: 'rgb(132, 99, 255)',
+                    data: remoteChartData
+                }
+
+            ]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+    console.log("chart done");
+}
+
+var decideFacialExpression = function() {
+    targetFacialExpression = facialExpressionLabel[Math.floor(Math.random() * facialExpressionLabel.length)];
+    var target = document.getElementById("target-facial-expression");
+    target.textContent = targetFacialExpression;
+}
+
+var judgeBattleResult = function () {
+    localScore = emotionResults[emotionResults.length-1].local[targetFacialExpression];
+    remoteScore = emotionResults[emotionResults.length-1].remote[targetFacialExpression];
+
+    if (localScore > remoteScore) {
+        alert("You win");
+    } else if (localScore < remoteScore) {
+        alert("You lose");
+    } else {
+        alert("draw");
+    }
+}
+
+var countDown = function () {
+    var count = 5;
+    var countDownLabel = document.getElementById("countdown");
+    countDownLabel.textContent = String(count);
+    var timerId = setInterval(() => {
+        if(count > 0) {
+            count --;
+            countDownLabel.textContent = String(count);
+        } else {
+            clearInterval(timerId);
+            countDownLabel.textContent = "";
+            var audio = new Audio("/assets/sound/shutter.mp3");
+            audio.play();
+
+            analyzeFace("local");
+            // analyzeFace("remote");
+            // drawChart();
+            // judgeBattleResult(targetFacialExpression);
+        }
+    }, 1000);
 }

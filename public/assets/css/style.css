@@ -7,6 +7,20 @@ video {
   width: 100%;
 }
 
+canvas {
+  background-color: antiquewhite;
+  width: 100%;
+  margin-top: 10px;
+}
+
+img {
+  height: 100px;
+}
+
+#emotion-chart {
+  background-color: white;
+}
+
 .heading {
   text-align: center;
   margin-bottom: 0;
@@ -32,15 +46,19 @@ video {
 .p2p-media {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .p2p-media .remote-stream {
-  width: 40%;
+  width: 50%;
+  height: 30%;
+  margin: 10px;
 }
 
 .p2p-media .local-stream {
-  width: 40%;
+  width: 50%;
+  height: 30%;
+  margin: 10px;
 }
 
 /* p2p-data styles */
@@ -74,4 +92,13 @@ video {
   min-height: 100px;
   padding: 8px;
   margin-top: 0;
+}
+
+.left {
+  width: 50%;
+  float: left;
+  background-color: aqua;
+}
+.right {
+  background-color: aquamarine;
 }

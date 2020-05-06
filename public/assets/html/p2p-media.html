@@ -7,29 +7,47 @@
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
   </head>
   <body>
-    <div class="container">
-      <h1 class="heading">P2P Media example</h1>
-      <p class="note">
-        Enter remote peer ID to call.
-      </p>
-      <div class="p2p-media">
-        <div class="remote-stream">
-          <video id="js-remote-stream"></video>
+    <div class="container uk-container">
+      <h1 class="uk-heading-line uk-text-center"><span>Facial Expression Battle</span></h1>
+      <p class="note">Enter remote peer ID to start Facial Expression Battle.</p>
+      <p>Your ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary"></span></p>
+
+        <div class="uk-margin">
+          <input class="uk-input" type="text" placeholder="Remote Peer ID" id="js-remote-id">
         </div>
-        <div class="local-stream">
-          <canvas id="local-canvas"></canvas>
+        <div class="uk-margin">
+          <button id="js-call-trigger" class="uk-button uk-button-primary">Call</button>
+          <button id="js-close-trigger" class="uk-button uk-button-danger">Close</button>
+          <button class="uk-button uk-button-default" onclick="processImage()">Battle</button>
+          <label>taget facial expression: </label><span id="target-facial-expression" class="uk-text-bolder uk-text-default">????</span>
+          <span id="countdown" class="uk-text-bolder uk-text-primary"></span>
+        </div>
+        <div class="p2p-media">
+        <div class="local-stream uk-card uk-card-default uk-card-body">
+          <h4 class="uk-heading-line uk-text-center"><span>Local Stream</span></h4>
           <video id="js-local-stream"></video>
-          <p>Your ID: <span id="js-local-id"></span></p>
-          <input type="text" placeholder="Remote Peer ID" id="js-remote-id">
-          <button id="js-call-trigger">Call</button>
-          <button id="js-close-trigger">Close</button>
-          <button onclick="processImage()">Analyze face</button>
+          <h4 class="uk-heading-line uk-text-center"><span>Local Snapshot</span></h4>
+          <canvas id="local-canvas"></canvas>
+        </div>
+        <div class="remote-stream uk-card uk-card-default uk-card-body">
+          <h4 class="uk-heading-line uk-text-center"><span>Remote Stream</span></h4>
+          <video id="js-remote-stream"></video>
+          <h4 class="uk-heading-line uk-text-center"><span>Remote Snapshot</span></h4>
+          <canvas id="remote-canvas"></canvas>
         </div>
       </div>
+
+      <div class="chart uk-card uk-card-default uk-card-body">
+        <canvas id="emotion-chart"></canvas>
+      </div>
+
       <p class="meta" id="js-meta"></p>
     </div>
+
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="/key.js"></script>
     <script src="/assets/js/p2p-media.js"></script>
