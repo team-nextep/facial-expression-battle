@@ -5,4 +5,4 @@ var inviteUrl = document.getElementById('js-invite-url');
 var urlWithId = url + "/" + localId; 
 inviteUrl.innerText = urlWithId;
 
-console.log("message:OK");
+new ClipboardJS('.btn');
