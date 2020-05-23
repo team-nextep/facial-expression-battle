@@ -57,7 +57,7 @@ const Peer = window.Peer;
       remoteVideo.srcObject = null;
     });
 
-    closeTrigger.addEventListener('click', () => mediaConnection.close(true));
+    // closeTrigger.addEventListener('click', () => mediaConnection.close(true));
   };
 
   // peer.once('open', id => (localId.textContent = id));
