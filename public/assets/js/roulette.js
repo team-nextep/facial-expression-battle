@@ -4,7 +4,7 @@
 			maxPlayCount : null, // x >= 0 or null
 			speed : 5, // x > 0
 			stopImageNumber : null, // x >= 0 or null or -1
-			duration : 3, //(x second)
+			duration : 1, //(x second)
 			stopCallback : function() {
 			},
 			startCallback : function() {
@@ -142,7 +142,7 @@
 				if (option) {
 					var stopImageNumber = Number(option.stopImageNumber);
 					if (0 <= stopImageNumber && stopImageNumber <= (p.imageCount - 1)) {
-						p.stopImageNumber = option.stopImageNumber;
+            p.stopImageNumber = option.stopImageNumber;
 					}
 				}
 				slowDownSetup();

@@ -152,15 +152,11 @@ var judgeBattleResult = function () {
 var countDown = function () {
     $("#countdown-animation").toggle();
     var count = 3;
-    var countDownLabel = document.getElementById("countdown");
-    countDownLabel.textContent = String(count);
     var timerId = setInterval(() => {
         if(count > 0) {
             count --;
-            countDownLabel.textContent = String(count);
         } else {
             clearInterval(timerId);
-            countDownLabel.textContent = "";
             var audio = new Audio("/assets/sound/shutter.mp3");
             $("#countdown-animation").toggle();
 
