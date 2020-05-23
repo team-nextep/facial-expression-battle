@@ -1,3 +1,4 @@
+$("#countdown-animation").toggle();
 var captures = [];
 var emotionResults = [];
 // var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
@@ -149,7 +150,8 @@ var judgeBattleResult = function () {
 }
 
 var countDown = function () {
-    var count = 10;
+    $("#countdown-animation").toggle();
+    var count = 3;
     var countDownLabel = document.getElementById("countdown");
     countDownLabel.textContent = String(count);
     var timerId = setInterval(() => {
@@ -160,6 +162,8 @@ var countDown = function () {
             clearInterval(timerId);
             countDownLabel.textContent = "";
             var audio = new Audio("/assets/sound/shutter.mp3");
+            $("#countdown-animation").toggle();
+
             audio.play();
 
             analyzeFace("local");
@@ -167,5 +171,5 @@ var countDown = function () {
             // drawChart();
             // judgeBattleResult(targetFacialExpression);
         }
-    }, 1000);
+    }, 900);
 }

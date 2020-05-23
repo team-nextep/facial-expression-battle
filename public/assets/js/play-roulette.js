@@ -1,7 +1,7 @@
 var processImage = function() {
   var stopImageNumber = decideFacialExpression();
   playRoulette(stopImageNumber);
-  countDown();
+	setTimeout( () => countDown(), 3000);
 };
 
 var playRoulette = function(stopImageNumber){
