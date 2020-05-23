@@ -34,14 +34,16 @@ const Peer = window.Peer;
   }));
 
   // Register caller handler
-  callTrigger.addEventListener('click', () => {
+
+  // callTrigger.addEventListener('click', () => {
+  var callToRemote = function () {
     // Note that you need to ensure the peer has connected to signaling server
     // before using methods of peer instance.
     if (!peer.open) {
       return;
     }
 
-    const mediaConnection = peer.call(remoteId.value, localStream);
+    const mediaConnection = peer.call(remoteId, localStream);
 
     mediaConnection.on('stream', async stream => {
       // Render remote stream for caller
@@ -56,9 +58,13 @@ const Peer = window.Peer;
     });
 
     closeTrigger.addEventListener('click', () => mediaConnection.close(true));
-  });
+  };
 
-  peer.once('open', id => (localId.textContent = id));
+  // peer.once('open', id => (localId.textContent = id));
+  peer.once('open', function(id) {
+    localId.textContent = id
+    callToRemote();
+  });
 
   // Register callee handler
   peer.on('call', mediaConnection => {
@@ -76,7 +82,7 @@ const Peer = window.Peer;
       remoteVideo.srcObject = null;
     });
 
-    closeTrigger.addEventListener('click', () => mediaConnection.close(true));
+    // closeTrigger.addEventListener('click', () => mediaConnection.close(true));
   });
 
   peer.on('error', console.error);
