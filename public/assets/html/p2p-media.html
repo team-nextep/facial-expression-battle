@@ -14,7 +14,7 @@
     <div class="container uk-container">
       <h1 class="uk-heading-line uk-text-center"><span>Facial Expression Battle</span></h1>
       <p class="note">Enter remote peer ID to start Facial Expression Battle.</p>
-      <p>Your ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary"></span></p>
+      <p>Your ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary">hogehoge</span></p>
 
         <div class="uk-margin">
           <input class="uk-input" type="text" placeholder="Remote Peer ID" id="js-remote-id">
@@ -22,9 +22,13 @@
         <div class="uk-margin">
           <button id="js-call-trigger" class="uk-button uk-button-primary">Call</button>
           <button id="js-close-trigger" class="uk-button uk-button-danger">Close</button>
+          <button id="js-invite-trigger" class="uk-button uk-button-default">invite</button>
           <button class="uk-button uk-button-default" onclick="processImage()">Battle</button>
           <label>taget facial expression: </label><span id="target-facial-expression" class="uk-text-bolder uk-text-default">????</span>
           <span id="countdown" class="uk-text-bolder uk-text-primary"></span>
+        </div>
+        <div class="uk-margin">
+          <span id="js-invite-url" class="uk-text-bolder uk-text-primary"></span>
         </div>
         <div class="p2p-media">
         <div class="local-stream uk-card uk-card-default uk-card-body">
@@ -52,5 +56,6 @@
     <script src="/key.js"></script>
     <script src="/assets/js/p2p-media.js"></script>
     <script src="/assets/js/face.js"></script>
+    <script src="/assets/js/invite.js"></script>
   </body>
 </html>
