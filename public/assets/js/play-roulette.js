@@ -11,7 +11,8 @@ var playRoulette = function(stopImageNumber){
 		slowDownCallback : function() {
 		},
 		stopCallback : function() {
-			setTimeout( () => countDown(), 800);
+			showFaceText();
+			setTimeout( () => countDown(), 3000);
 		},
 		stopImageNumber : stopImageNumber
 	}

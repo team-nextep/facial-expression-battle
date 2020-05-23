@@ -6,5 +6,12 @@ var invite = function() {
     var urlWithId = url + "?remoteId=" + localId;
     inviteUrl.innerText = urlWithId;
 
-    new ClipboardJS('.btn');
+    new ClipboardJS('.invite-button');
+
+    UIkit.notification({
+        message: '招待URLをコピーしました！',
+        status: 'primary',
+        pos: 'top-center',
+        timeout: 2000
+    });    
 }

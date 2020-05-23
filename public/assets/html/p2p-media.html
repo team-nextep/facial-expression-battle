@@ -3,21 +3,23 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SkyWay - P2P Media example</title>
+    <title>顔バト</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/countdown.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
-
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit-icons.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container uk-container">
-      <h1 class="uk-heading-line uk-text-center"><span>Facial Expression Battle</span></h1>
-      <p class="note">Enter remote peer ID to start Facial Expression Battle.</p>
-      <p>Your ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary">No User</span></p>
+      <h1 class="uk-heading-line uk-text-center"><span>顔バト</span></h1>
+      <p>あなたの ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary">No User</span></p>
 
       <div id="countdown-animation">
         <div class="demo">
@@ -50,26 +52,26 @@
         </div>
       </div>
 
-        <div class="uk-margin">
-          <!-- <button id="js-call-trigger" class="uk-button uk-button-primary" onClick="callToRemote()">Call</button> -->
-          <!-- <button id="js-close-trigger" class="uk-button uk-button-danger">Close</button> -->
-          <button class="btn uk-button uk-button-default" data-clipboard-target="#js-invite-url" onClick="invite()">Invite</button>
-          <button class="uk-button uk-button-default" onclick="processImage()">Battle</button>
-          <label>taget facial expression: </label><span id="target-facial-expression" class="uk-text-bolder uk-text-default">????</span>
+        <div class="uk-margin" uk-grid>
+            <button class="invite-button uk-button uk-button-large uk-width-1-2 uk-button-primary" data-clipboard-target="#js-invite-url" onClick="invite()">招待 <span uk-icon="copy"></span></button>
+            <button class="uk-button uk-button-large uk-width-1-2 uk-button-danger" onclick="processImage()">バトル <span uk-icon="camera"></span></button>
         </div>
         <div class="uk-margin">
           <span id="js-invite-url" class="uk-text-bolder uk-text-primary"></span>
         </div>
-      <div class="face-roulette">
-        <div class="roulette" style="display:none;">
-          <img src="../img/0-ikari.png"/>
-          <img src="../img/1-keibetsu.png"/>
-          <img src="../img/2-keno.png"/>
-          <img src="../img/3-kyoufu.png"/>
-          <img src="../img/4-ureshi.png"/>
-          <img src="../img/5-magao.png"/>
-          <img src="../img/6-kanashi.png"/>
-          <img src="../img/-1-odoriki.png"/>
+      <div class="face-roulette" uk-grid>
+        <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
+          <label>お題は...</label><span id="target-facial-expression" class="uk-text-bolder uk-text-default uk-text-danger">????</span>
+        </div>
+        <div class="roulette uk-width-1-2" style="display:none;">
+          <img src="../img/0-ikari.png" class="face-image"/>
+          <img src="../img/1-keibetsu.png" class="face-image"/>
+          <img src="../img/2-keno.png" class="face-image"/>
+          <img src="../img/3-kyoufu.png" class="face-image"/>
+          <img src="../img/4-ureshi.png" class="face-image"/>
+          <img src="../img/5-magao.png" class="face-image"/>
+          <img src="../img/6-kanashi.png" class="face-image"/>
+          <img src="../img/-1-odoriki.png" class="face-image"/>
         </div>
       </div>
       <div class="p2p-media">
