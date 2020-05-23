@@ -5,8 +5,8 @@ var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness"
 var subscriptionKey = window.__FACEAPI_KEY__;
 var targetFacialExpression;
 
-var uriBase =
-    "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+// var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+var uriBase = "https://facial-expression-battle.cognitiveservices.azure.com/face/v1.0/detect"
 
 // Request parameters.
 var params = {
