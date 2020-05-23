@@ -22,7 +22,7 @@
         <div class="uk-margin">
           <button id="js-call-trigger" class="uk-button uk-button-primary">Call</button>
           <button id="js-close-trigger" class="uk-button uk-button-danger">Close</button>
-          <button id="js-invite-trigger" class="uk-button uk-button-default">invite</button>
+          <button class="btn uk-button uk-button-default" data-clipboard-target="#js-invite-url">Invite</button>
           <button class="uk-button uk-button-default" onclick="processImage()">Battle</button>
           <label>taget facial expression: </label><span id="target-facial-expression" class="uk-text-bolder uk-text-default">????</span>
           <span id="countdown" class="uk-text-bolder uk-text-primary"></span>
@@ -52,6 +52,7 @@
       <p class="meta" id="js-meta"></p>
     </div>
 
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
     <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
     <script src="/key.js"></script>
     <script src="/assets/js/p2p-media.js"></script>
