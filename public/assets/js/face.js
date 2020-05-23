@@ -1,6 +1,7 @@
 var captures = [];
 var emotionResults = [];
-var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
+// var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
+var facialExpressionLabel = ["怒り", "軽蔑", "嫌悪", "恐怖", "嬉しい", "真顔", "悲しい", "驚き"];
 
 var subscriptionKey = window.__FACEAPI_KEY__;
 var targetFacialExpression;
