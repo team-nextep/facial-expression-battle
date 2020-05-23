@@ -125,8 +125,6 @@ var drawChart = function () {
 var decideFacialExpression = function() {
     var stopImageNumber = Math.floor(Math.random() * facialExpressionLabel.length);
     targetFacialExpression = facialExpressionLabel[stopImageNumber];
-    var target = document.getElementById("target-facial-expression");
-    target.textContent = targetFacialExpression;
     if (stopImageNumber == 7)
     {
         stopImageNumber = -1;
@@ -134,6 +132,10 @@ var decideFacialExpression = function() {
     return stopImageNumber;
 }
 
+var showFaceText = function() {
+    var target = document.getElementById("target-facial-expression");
+    target.textContent = targetFacialExpression;
+}
 
 var judgeBattleResult = function () {
     localScore = emotionResults[emotionResults.length-1].local[targetFacialExpression];
