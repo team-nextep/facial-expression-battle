@@ -6,7 +6,7 @@ const Peer = window.Peer;
   const callTrigger = document.getElementById('js-call-trigger');
   const closeTrigger = document.getElementById('js-close-trigger');
   const remoteVideo = document.getElementById('js-remote-stream');
-  const remoteId = document.getElementById('js-remote-id');
+  const remoteId = getParam('remoteId');
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
 
