@@ -19,11 +19,6 @@ var params = {
         "hair,makeup,occlusion,accessories,blur,exposure,noise"
 };
 
-var processImage = function() {
-    decideFacialExpression();
-    setTimeout( () => countDown(), 3000);
-};
-
 var makeblob = function (dataURL) {
     var BASE64_MARKER = ';base64,';
     if (dataURL.indexOf(BASE64_MARKER) == -1) {
@@ -129,10 +124,17 @@ var drawChart = function () {
 }
 
 var decideFacialExpression = function() {
-    targetFacialExpression = facialExpressionLabel[Math.floor(Math.random() * facialExpressionLabel.length)];
+    var stopImageNumber = Math.floor(Math.random() * facialExpressionLabel.length);
+    targetFacialExpression = facialExpressionLabel[stopImageNumber];
     var target = document.getElementById("target-facial-expression");
     target.textContent = targetFacialExpression;
+    if (stopImageNumber == 7)
+    {
+        stopImageNumber = -1;
+    }
+    return stopImageNumber;
 }
+
 
 var judgeBattleResult = function () {
     localScore = emotionResults[emotionResults.length-1].local[targetFacialExpression];
@@ -150,15 +152,11 @@ var judgeBattleResult = function () {
 var countDown = function () {
     $("#countdown-animation").toggle();
     var count = 3;
-    var countDownLabel = document.getElementById("countdown");
-    countDownLabel.textContent = String(count);
     var timerId = setInterval(() => {
         if(count > 0) {
             count --;
-            countDownLabel.textContent = String(count);
         } else {
             clearInterval(timerId);
-            countDownLabel.textContent = "";
             var audio = new Audio("/assets/sound/shutter.mp3");
             $("#countdown-animation").toggle();
 
