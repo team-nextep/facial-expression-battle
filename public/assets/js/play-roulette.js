@@ -8,7 +8,7 @@ var getRoomId = function() {
 	}
 	return roomId;
 }
-var myRoomId;
+var myRoomId = getRoomId();
 
 // バトルボタンを押したとき
 var processImage = function() {
@@ -21,19 +21,21 @@ var processImage = function() {
 	});
 };
 
-var initState = true;
+var initClientState = true;
 
 // Firebaseでデータが更新されたとき
-db.collection("room").doc(myRoomId)
+if (isHost() == false) {
+	db.collection("room").doc(myRoomId)
 	.onSnapshot(function(doc) {
-		if (initState) {
-			initState = false;
+		if (initClientState) {
+			initClientState = false;
 		} else {
 			var stopImageNumber = doc.data().stopImageNumber;
 			playRoulette(stopImageNumber);
 			playDrumroll();
 		}
 	});
+}
 
 var playRoulette = function(stopImageNumber){
 	var p = {
