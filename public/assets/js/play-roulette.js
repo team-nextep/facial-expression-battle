@@ -44,7 +44,7 @@ var playRoulette = function(stopImageNumber){
 		slowDownCallback : function() {
 		},
 		stopCallback : function() {
-			showFaceText();
+			showFaceText(stopImageNumber);
 			setTimeout( () => countDown(), 3000);
 		},
 		stopImageNumber : stopImageNumber
