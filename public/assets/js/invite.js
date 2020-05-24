@@ -7,7 +7,12 @@ var invite = function() {
     inviteUrl.innerText = urlWithId;
 
     new ClipboardJS('.invite-button');
-
+    db.collection("room").doc(getRoomId()).set({
+        stopImageNumber: -1000
+    }).catch(function(error) {
+        console.error("データプッシュエラー： ");
+    });
+    myRoomId = getRoomId();
     UIkit.notification({
         message: '招待URLをコピーしました！',
         status: 'primary',

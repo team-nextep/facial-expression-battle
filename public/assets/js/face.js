@@ -158,10 +158,10 @@ var countDown = function () {
             count --;
         } else {
             clearInterval(timerId);
-            var audio = new Audio("/assets/sound/shutter.mp3");
             $("#countdown-animation").toggle();
 
-            audio.play();
+            var soundShutter = new Audio("/assets/sound/shutter.mp3");
+            soundShutter.play();
 
             analyzeFace("local");
             // analyzeFace("remote");

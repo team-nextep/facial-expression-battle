@@ -1,16 +1,41 @@
+var db = firebase.firestore();
+
+var getRoomId = function() {
+	var roomId = getParam('remoteId');
+	if (roomId == "")
+	{
+		roomId =  document.getElementById('js-local-id').innerText;
+	}
+	return roomId;
+}
+var myRoomId;
+
+// バトルボタンを押したとき
 var processImage = function() {
-  var stopImageNumber = decideFacialExpression();
-	playRoulette(stopImageNumber);
-	var db = firebase.firestore();
-	db.collection("room").add({
+	myRoomId = getRoomId();
+	var stopImageNumber = decideFacialExpression();
+	db.collection("room").doc(myRoomId).set({
 		stopImageNumber: stopImageNumber
 	}).catch(function(error) {
 		console.error("データプッシュエラー： ");
 	});
 };
 
-var playRoulette = function(stopImageNumber){
+var initState = true;
 
+// Firebaseでデータが更新されたとき
+db.collection("room").doc(myRoomId)
+	.onSnapshot(function(doc) {
+		if (initState) {
+			initState = false;
+		} else {
+			var stopImageNumber = doc.data().stopImageNumber;
+			playRoulette(stopImageNumber);
+			playDrumroll();
+		}
+	});
+
+var playRoulette = function(stopImageNumber){
 	var p = {
 		startCallback : function() {
 		},
