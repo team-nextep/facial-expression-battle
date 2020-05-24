@@ -175,7 +175,8 @@
 				if (roulette[method]) {
 					roulette[method](options);
 				} else {
-					console && console.error('Method ' + method + ' does not exist on jQuery.roulette');
+					// 2回目以降ここでエラー
+					// console && console.error('Method ' + method + ' does not exist on jQuery.roulette');
 				}
 			} else {
 				roulette = new Roulette(method);
