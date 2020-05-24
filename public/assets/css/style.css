@@ -1,5 +1,23 @@
 /* normalize */
-body { margin: 0; }
+
+
+html, body {
+  background-color: #32386D;
+}
+
+.home-button-text {
+  font-size: 25px;
+}
+
+.home-text {
+  font-size: 50px;
+  color: #fff;
+}
+
+.home-footer-text {
+  font-size: 20px;
+  color: #fff;
+}
 
 /* global styles */
 video {
@@ -112,4 +130,13 @@ img {
 
 .face-text {
   font-size: 65px;
+  color: #fff;
+}
+
+.header-text {
+  color: #fff;
+}
+
+.id-text {
+  color: #fff;
 }
