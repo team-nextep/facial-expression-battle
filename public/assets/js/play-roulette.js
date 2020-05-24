@@ -1,6 +1,12 @@
 var processImage = function() {
   var stopImageNumber = decideFacialExpression();
-  playRoulette(stopImageNumber);
+	playRoulette(stopImageNumber);
+	var db = firebase.firestore();
+	db.collection("room").add({
+		stopImageNumber: stopImageNumber
+	}).catch(function(error) {
+		console.error("データプッシュエラー： ");
+	});
 };
 
 var playRoulette = function(stopImageNumber){
