@@ -141,13 +141,31 @@ var judgeBattleResult = function () {
     localScore = emotionResults[emotionResults.length-1].local[targetFacialExpression];
     remoteScore = emotionResults[emotionResults.length-1].remote[targetFacialExpression];
 
+    var message;
+    var status;
+
     if (localScore > remoteScore) {
-        alert("You win");
+        message = "あなたの勝ち！！！"
+        status = "primary"
+        var soundBattleResult = new Audio("/assets/sound/win.mp3");
     } else if (localScore < remoteScore) {
-        alert("You lose");
+        message = "あなたの負け・・・"
+        status = "danger"
+        var soundBattleResult = new Audio("/assets/sound/lose.mp3");
     } else {
-        alert("draw");
+        message = "引き分け！"
+        status = "success"
+        var soundBattleResult = new Audio("/assets/sound/draw.mp3");
     }
+
+    UIkit.notification({
+        message: message,
+        status: status,
+        pos: 'bottom-center',
+        timeout: 10000
+    });
+
+    soundBattleResult.play();
 }
 
 var countDown = function () {
