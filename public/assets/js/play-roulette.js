@@ -1,6 +1,7 @@
 var processImage = function() {
   var stopImageNumber = decideFacialExpression();
   playRoulette(stopImageNumber);
+  playDrumroll();
 };
 
 var playRoulette = function(stopImageNumber){
