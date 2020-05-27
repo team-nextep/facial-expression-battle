@@ -53,12 +53,11 @@
         </div>
       </div>
       <div class="uk-flex uk-flex-center">
-          <button class="invite-button uk-button uk-button-large uk-width-1-2 uk-button-primary" data-clipboard-target="#js-invite-url" onClick="invite()">招待 <span uk-icon="copy"></span></button>
+          <button id="invite-button" class="uk-button uk-button-large uk-width-1-2 uk-button-primary" data-clipboard-text="" onClick="invite()">招待 <span uk-icon="copy"></span></button>
           <button class="uk-button uk-button-large uk-width-1-2 uk-button-danger" onclick="processImage()">バトル <span uk-icon="camera"></span></button>
       </div>
     </div>
     <div class="uk-container uk-align-center">
-      <span id="js-invite-url" class="uk-text-bolder uk-text-primary"></span>
       <div class="face-roulette" uk-grid>
         <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
           <label>お題は...</label><span id="target-facial-expression" class="uk-text-bolder uk-text-default uk-text-danger">????</span>
