@@ -17,9 +17,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
   </head>
   <body>
-    <div class="container uk-container">
+    <div class="uk-container uk-width-auto">
       <h1 class="uk-heading-line uk-text-center header-text"><span>顔バト<span uk-icon="happy"></span></span></h1>
       <div class="id-text"><p>あなたの ID: <span id="js-local-id" class="uk-text-bolder uk-text-primary">No User</span></p></div>
+    </div>
+    <div class="uk-container">
       <div id="countdown-animation">
         <div class="demo">
           <div class="demo__colored-blocks">
@@ -50,14 +52,13 @@
           </div>
         </div>
       </div>
-
-        <div class="uk-margin" uk-grid>
-            <button class="invite-button uk-button uk-button-large uk-width-1-2 uk-button-primary" data-clipboard-target="#js-invite-url" onClick="invite()">招待 <span uk-icon="copy"></span></button>
-            <button class="uk-button uk-button-large uk-width-1-2 uk-button-danger" onclick="processImage()">バトル <span uk-icon="camera"></span></button>
-        </div>
-        <div class="uk-margin">
-          <span id="js-invite-url" class="uk-text-bolder uk-text-primary"></span>
-        </div>
+      <div class="uk-flex uk-flex-center">
+          <button class="invite-button uk-button uk-button-large uk-width-1-2 uk-button-primary" data-clipboard-target="#js-invite-url" onClick="invite()">招待 <span uk-icon="copy"></span></button>
+          <button class="uk-button uk-button-large uk-width-1-2 uk-button-danger" onclick="processImage()">バトル <span uk-icon="camera"></span></button>
+      </div>
+    </div>
+    <div class="uk-container uk-align-center">
+      <span id="js-invite-url" class="uk-text-bolder uk-text-primary"></span>
       <div class="face-roulette" uk-grid>
         <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
           <label>お題は...</label><span id="target-facial-expression" class="uk-text-bolder uk-text-default uk-text-danger">????</span>
@@ -73,22 +74,23 @@
           <img src="../img/-1-odoriki.png" class="face-image"/>
         </div>
       </div>
+    </div>
+    <div class="uk-container">
       <div class="p2p-media">
         <div class="local-stream uk-card uk-card-default uk-card-body">
-          <h4 class="uk-heading-line uk-text-center"><span>Local Stream</span></h4>
+          <h4 class="uk-heading-line uk-text-center"><span>自分</span></h4>
           <video id="js-local-stream"></video>
-          <h4 class="uk-heading-line uk-text-center"><span>Local Snapshot</span></h4>
           <canvas id="local-canvas"></canvas>
         </div>
         <div class="remote-stream uk-card uk-card-default uk-card-body">
-          <h4 class="uk-heading-line uk-text-center"><span>Remote Stream</span></h4>
+          <h4 class="uk-heading-line uk-text-center"><span>相手</span></h4>
           <video id="js-remote-stream"></video>
-          <h4 class="uk-heading-line uk-text-center"><span>Remote Snapshot</span></h4>
           <canvas id="remote-canvas"></canvas>
         </div>
       </div>
 
       <div class="chart uk-card uk-card-default uk-card-body">
+        <h4 class="uk-heading-line uk-text-center"><span>対戦結果</span></h4>
         <canvas id="emotion-chart"></canvas>
       </div>
 
