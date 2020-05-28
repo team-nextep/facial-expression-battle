@@ -1,9 +1,6 @@
 var invite = function() {
     var url = location.href;
     const localId = document.getElementById('js-local-id').innerText;
-    if (localId == "No User"){
-        return;
-    }
     var urlWithId = url + "?remoteId=" + localId;
     document.getElementById('invite-button').setAttribute("data-clipboard-text",urlWithId);
     var cliptext = document.getElementById('invite-button').getAttribute("data-clipboard-text");
