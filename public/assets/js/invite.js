@@ -3,7 +3,6 @@ var invite = function() {
     const localId = document.getElementById('js-local-id').innerText;
     var urlWithId = url + "?remoteId=" + localId;
     document.getElementById('invite-button').setAttribute("data-clipboard-text",urlWithId);
-    var cliptext = document.getElementById('invite-button').getAttribute("data-clipboard-text");
 
     new ClipboardJS('#invite-button', {});
 
