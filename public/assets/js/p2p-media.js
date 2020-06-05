@@ -9,6 +9,7 @@ const Peer = window.Peer;
   const remoteId = getParam('remoteId');
   const meta = document.getElementById('js-meta');
   const sdkSrc = document.querySelector('script[src*=skyway]');
+  const inviteBtn = document.getElementById('invite-button');
 
   meta.innerText = `
     UA: ${navigator.userAgent}
@@ -62,7 +63,8 @@ const Peer = window.Peer;
 
   // peer.once('open', id => (localId.textContent = id));
   peer.once('open', function(id) {
-    localId.textContent = id
+    localId.textContent = id;
+    inviteBtn.removeAttribute("disabled");
     callToRemote();
   });
 

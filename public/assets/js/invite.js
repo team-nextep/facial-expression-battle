@@ -1,12 +1,12 @@
 var invite = function() {
     var url = location.href;
     const localId = document.getElementById('js-local-id').innerText;
-
-    var inviteUrl = document.getElementById('js-invite-url');
     var urlWithId = url + "?remoteId=" + localId;
-    inviteUrl.innerText = urlWithId;
+    document.getElementById('invite-button').setAttribute("data-clipboard-text",urlWithId);
+    var cliptext = document.getElementById('invite-button').getAttribute("data-clipboard-text");
 
-    new ClipboardJS('.invite-button');
+    new ClipboardJS('#invite-button', {});
+
     myRoomId = getRoomId();
 
     var initHostState = true;
