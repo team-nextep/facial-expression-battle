@@ -65,6 +65,7 @@ img {
   display: flex;
   align-items: center;
   flex-direction: row;
+  justify-content: center;
 }
 
 .p2p-media .remote-stream {
