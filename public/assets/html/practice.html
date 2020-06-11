@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>顔バト</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/countdown.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.4.3/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.4.6/dist/js/uikit-icons.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="uk-container uk-width-auto">
+      <h1 class="uk-heading-line uk-text-center header-text"><span>顔バト<span uk-icon="happy"></span></span></h1>
+    </div>
+    <div class="uk-container">
+        <button class="uk-button uk-button-large uk-width-medium uk-align-center uk-button-primary" onclick="location.href='/index.html'">
+            <div class="home-button-text">
+              HOMEに戻る<span uk-icon="home"></span>
+            </div>
+          </button>
+    </div>
+    <div class="uk-container">
+      <div id="countdown-animation">
+        <div class="demo">
+          <div class="demo__colored-blocks">
+            <div class="demo__colored-blocks-rotater">
+              <div class="demo__colored-block"></div>
+              <div class="demo__colored-block"></div>
+              <div class="demo__colored-block"></div>
+            </div>
+            <div class="demo__colored-blocks-inner"></div>
+            <div class="demo__text">Ready</div>
+          </div>
+          <div class="demo__inner">
+            <svg class="demo__numbers" viewBox="0 0 100 100">
+              <defs>
+                <path class="demo__num-path-1" d="M40,28 55,22 55,78"/>
+                <path class="demo__num-join-1-2" d="M55,78 55,83 a17,17 0 1,0 34,0 a20,10 0 0,0 -20,-10"/>
+                <path class="demo__num-path-2" d="M69,73 l-35,0 l30,-30 a16,16 0 0,0 -22.6,-22.6 l-7,7"/>
+                <path class="demo__num-join-2-3" d="M28,69 Q25,44 34.4,27.4"/>
+                <path class="demo__num-path-3" d="M30,20 60,20 40,50 a18,15 0 1,1 -12,19"/>
+              </defs>
+              <path class="demo__numbers-path"
+                    d="M-10,20 60,20 40,50 a18,15 0 1,1 -12,19
+                      Q25,44 34.4,27.4
+                      l7,-7 a16,16 0 0,1 22.6,22.6 l-30,30 l35,0 L69,73
+                      a20,10 0 0,1 20,10 a17,17 0 0,1 -34,0 L55,83
+                      l0,-61 L40,28" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="uk-flex uk-flex-center">
+          <button class="uk-button uk-button-large uk-width-1-2 uk-button-danger" onclick="practice()">練習 <span uk-icon="camera"></span></button>
+      </div>
+    </div>
+    <div class="uk-container uk-align-center">
+      <div class="face-roulette" uk-grid>
+        <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
+          <label>お題は...</label><span id="target-facial-expression" class="uk-text-bolder uk-text-default uk-text-danger">????</span>
+        </div>
+        <div class="roulette uk-width-1-2" style="display:none;">
+          <img src="../img/0-ikari.png" class="face-image"/>
+          <img src="../img/1-keibetsu.png" class="face-image"/>
+          <img src="../img/2-keno.png" class="face-image"/>
+          <img src="../img/3-kyoufu.png" class="face-image"/>
+          <img src="../img/4-ureshi.png" class="face-image"/>
+          <img src="../img/5-magao.png" class="face-image"/>
+          <img src="../img/6-kanashi.png" class="face-image"/>
+          <img src="../img/-1-odoriki.png" class="face-image"/>
+        </div>
+      </div>
+    </div>
+    <div class="uk-container uk-align-center">
+      <div class="p2p-media practice-media">
+        <div class="local-stream uk-card uk-card-default uk-card-body">
+          <h4 class="uk-heading-line uk-text-center"><span>自分</span></h4>
+          <video id="js-local-stream"></video>
+          <canvas id="local-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="chart uk-card uk-card-default uk-card-body">
+        <h4 class="uk-heading-line uk-text-center"><span>対戦結果</span></h4>
+        <canvas id="emotion-chart"></canvas>
+      </div>
+
+      <p class="meta" id="js-meta"></p>
+    </div>
+    <script> $("#countdown-animation").hide(); </script>
+    <!-- Firebase -->
+    <script src="/__/firebase/6.2.0/firebase-app.js"></script>
+    <script src="/__/firebase/6.2.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script src="//cdn.webrtc.ecl.ntt.com/skyway-latest.js"></script>
+    <script src="/key.js"></script>
+    <!-- ホストかの確認 -->
+    <script src="/assets/js/isHost.js"></script>
+    <script src="/assets/js/drumroll.js"></script>
+    <script src="/assets/js/get-param.js"></script>
+    <script src="/assets/js/p2p-media.js"></script>
+    <script src="/assets/js/face-practice.js"></script>
+    <!-- ルーレット -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+    <script src="/assets/js/roulette.js"></script>
+    <script src="/assets/js/practice.js"></script>
+  </body>
+</html>
