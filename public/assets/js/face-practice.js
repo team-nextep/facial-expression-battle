@@ -1,12 +1,10 @@
 var captures = [];
 var emotionResults = [];
-// var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
 var facialExpressionLabel = ["怒り", "軽蔑", "嫌悪", "恐怖", "嬉しい", "真顔", "悲しい", "驚き"];
 
 var subscriptionKey = window.__FACEAPI_KEY__;
 var targetFacialExpression;
 
-// var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
 var uriBase = "https://facial-expression-battle.cognitiveservices.azure.com/face/v1.0/detect"
 
 // Request parameters.
@@ -40,9 +38,9 @@ var makeblob = function (dataURL) {
     return new Blob([uInt8Array], { type: contentType });
 }
 
-var analyzeFace = function (channel) {
-    var video = document.getElementById(`js-${channel}-stream`);
-    var canvas = document.getElementById(`${channel}-canvas`);
+var analyzeFace = function () {
+    var video = document.getElementById('js-local-stream');
+    var canvas = document.getElementById('local-canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     let context = canvas.getContext("2d").drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
@@ -61,19 +59,8 @@ var analyzeFace = function (channel) {
         },
       )
       .then(response => {
-        // console.log(response.data[0].faceAttributes.emotion);
-        if (channel == "local") {
-            emotionResults.push({[channel]: response.data[0].faceAttributes.emotion});
-            drawChart();
-            judgeBattleResult();
-            // analyzeFace("remote");
-        } else if (channel == "remote") {
-            emotionResults[emotionResults.length-1].remote = response.data[0].faceAttributes.emotion;
-            drawChart();
-            judgeBattleResult();
-        }
-
-        console.log(emotionResults);
+        emotionResults.push({result : response.data[0].faceAttributes.emotion});
+        drawChart();
       })
       .catch(error => {
         console.log(error.response);
@@ -81,16 +68,13 @@ var analyzeFace = function (channel) {
 }
 
 var drawChart = function () {
-    var localChartData = [];
-    // var remoteChartData = [];
+    var chartData = [];
 
-    var localLatestEmotion = emotionResults[emotionResults.length-1].local
-    // var remoteLatestEmotion = emotionResults[emotionResults.length-1].remote
+    var emotion = emotionResults[emotionResults.length-1].result
 
-    for (var key in localLatestEmotion) {
-        if (localLatestEmotion.hasOwnProperty(key)) {
-            localChartData.push(localLatestEmotion[key]);
-            // remoteChartData.push(remoteLatestEmotion[key]);
+    for (var key in emotion) {
+        if (emotion.hasOwnProperty(key)) {
+            chartData.push(emotion[key]);
         }
     }
 
@@ -107,15 +91,8 @@ var drawChart = function () {
                     label: "Local Emotion",
                     // backgroundColor: 'rgb(255, 99, 132)',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: localChartData
+                    data: chartData
                 }
-                // , {
-                //     label: "Remote Emotion",
-                //     // backgroundColor: 'rgb(132, 99, 255)',
-                //     borderColor: 'rgb(132, 99, 255)',
-                //     data: remoteChartData
-                // }
-
             ]
         },
 
@@ -140,37 +117,6 @@ var showFaceText = function(stopImageNumber) {
     target.textContent = targetFacialExpression;
 }
 
-var judgeBattleResult = function () {
-    localScore = emotionResults[emotionResults.length-1].local[targetFacialExpression];
-    remoteScore = emotionResults[emotionResults.length-1].remote[targetFacialExpression];
-
-    var message;
-    var status;
-
-    if (localScore > remoteScore) {
-        message = "あなたの勝ち！！！"
-        status = "primary"
-        var soundBattleResult = new Audio("/assets/sound/win.mp3");
-    } else if (localScore < remoteScore) {
-        message = "あなたの負け・・・"
-        status = "danger"
-        var soundBattleResult = new Audio("/assets/sound/lose.mp3");
-    } else {
-        message = "引き分け！"
-        status = "success"
-        var soundBattleResult = new Audio("/assets/sound/draw.mp3");
-    }
-
-    UIkit.notification({
-        message: message,
-        status: status,
-        pos: 'bottom-center',
-        timeout: 10000
-    });
-
-    soundBattleResult.play();
-}
-
 var countDown = function () {
     $("#countdown-animation").toggle();
     var count = 3;
@@ -184,10 +130,7 @@ var countDown = function () {
             var soundShutter = new Audio("/assets/sound/shutter.mp3");
             soundShutter.play();
 
-            analyzeFace("local");
-            // analyzeFace("remote");
-            // drawChart();
-            // judgeBattleResult(targetFacialExpression);
+            analyzeFace();
         }
     }, 900);
 }
