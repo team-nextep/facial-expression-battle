@@ -6,6 +6,7 @@
     <title>顔バト</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="stylesheet" href="/assets/css/countdown.css" />
+    <link rel="stylesheet" href="/assets/css/switch.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -86,8 +87,14 @@
           練習 <span uk-icon="camera"></span>
         </button>
       </div>
+      <div class="toggle-area">
+        <input type="checkbox" id="slider" onclick="toggleBattleContainer()" checked="">
+          <label for="slider">
+            <div id="slider-off"></div>
+          </label>
+      </div>
     </div>
-    <div class="uk-container uk-align-center">
+    <div class="uk-container uk-align-center" id="battle-container">
       <div class="face-roulette" uk-grid>
         <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
           <label>お題は...</label
