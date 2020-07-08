@@ -1,7 +1,7 @@
 // 練習ボタンを押したとき
 var practice = function() {
 		var stopImageNumber = decideFacialExpression();
-		if(document.getElementById("slider").checked){
+		if(document.getElementById("switch").checked){
 			playRoulette(stopImageNumber);
 			playDrumroll();
 		}else{
@@ -28,7 +28,7 @@ var playRoulette = function(stopImageNumber){
 
 var toggleBattleContainer = function() {
   // Get the checkbox
-  var checkBox = document.getElementById("slider");
+  var checkBox = document.getElementById("switch");
   // Get the output text
   var battleContainer = document.getElementById("battle-container");
 
