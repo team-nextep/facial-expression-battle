@@ -87,21 +87,29 @@
           練習 <span uk-icon="camera"></span>
         </button>
       </div>
-      <div class="switch-area">
-        <input
-          type="checkbox"
-          id="switch"
-          onclick="toggleBattleContainer()"
-          checked=""
-        />
-        <label for="switch">
-          <div id="switch-off"></div>
-        </label>
+
+      <div class="uk-flex uk-flex-center uk-margin-medium">
+        <div class="uk-width-1-4 uk-text-middle uk-text-center uk-text-large white-text">
+          お題でチャレンジ
+        </div>
+        <div class="switch-area uk-width-1-4">
+          <input
+            type="checkbox"
+            id="switch"
+            onclick="toggleBattleContainer()"
+            checked=""
+          />
+          <label for="switch">
+            <div id="switch-off"></div>
+          </label>
+        </div>
       </div>
+      <!-- <p style="display: inline-block; font-weight: bolder;">バトルスイッチ</p> -->
+
     </div>
     <div class="uk-container uk-align-center" id="battle-container">
       <div class="face-roulette" uk-grid>
-        <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
+        <div class="uk-width-1-2 white-text uk-text-middle uk-text-center">
           <label>お題は...</label
           ><span
             id="target-facial-expression"

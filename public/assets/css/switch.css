@@ -1,15 +1,15 @@
  /* === ボタンを表示するエリア ============================== */
  .switch-area {
-    margin         : auto;                /* 中央寄せ           */
+    margin-right: auto;
     width          : 100px;               /* ボタンの横幅       */
-    padding-top    : 30px;                /* HOMEボタン・練習ボタンとの間隔 */
+    /* display: inline-block; */
   }
-   
+
    /* === チェックボックス ==================================== */
   .switch-area input[type="checkbox"] {
     display        : none;            /* チェックボックス非表示 */
   }
-   
+
    /* === チェックボックスのラベル（標準） ==================== */
   .switch-area label {
     display        : block;               /* ボックス要素に変更 */
@@ -20,7 +20,7 @@
     line-height    : 1;                   /* 1行の高さ          */
     height         : 50px;                /* ボタンの高さ       */
   }
-   
+
    /* === 移動BOX（標準） ===================================== */
   .switch-area #switch-off {
     display        :inline-block;
@@ -29,7 +29,7 @@
     background     : #ddd;                /* 背景色             */
     transition     : .3s;                 /* ゆっくり変化       */
   }
-   
+
    /* === ON側のチェックボックスの移動BOX（ONのとき） ========= */
   .switch-area #switch:checked + label #switch-off {
     transform      : translateX(100%);    /* BOXを右に移動      */
