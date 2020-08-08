@@ -23,6 +23,11 @@
       integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM="
       crossorigin="anonymous"
     ></script>
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   </head>
   <body>
     <div class="uk-container uk-width-auto">
@@ -88,26 +93,22 @@
         </button>
       </div>
 
-      <div class="uk-flex uk-flex-center uk-margin-medium">
-        <div class="uk-width-1-4 uk-text-middle uk-text-center uk-text-large white-text">
-          お題でチャレンジ
-        </div>
-        <div class="switch-area uk-width-1-4">
-          <input
-            type="checkbox"
-            id="switch"
-            onclick="toggleBattleContainer()"
-            checked=""
-          />
-          <label for="switch">
-            <div id="switch-off"></div>
-          </label>
-        </div>
-      </div>
-      <!-- <p style="display: inline-block; font-weight: bolder;">バトルスイッチ</p> -->
+      <div class="uk-margin-medium"></div>
 
+      <div class="uk-flex uk-flex-center">
+        <input
+          id="switch"
+          type="checkbox"
+          data-toggle="toggle"
+          data-width="50%"
+          data-on="本番MODE"
+          data-onstyle="danger"
+          data-off="練習MODE"
+          data-offstyle="info"
+        />
+      </div>
     </div>
-    <div class="uk-container uk-align-center" id="battle-container">
+    <div class="uk-container uk-align-center" id="battle-container" style="display: none;">
       <div class="face-roulette" uk-grid>
         <div class="uk-width-1-2 white-text uk-text-middle uk-text-center">
           <label>お題は...</label
@@ -163,8 +164,6 @@
     <script src="/assets/js/p2p-media.js"></script>
     <script src="/assets/js/face-practice.js"></script>
     <!-- ルーレット -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
     <script src="/assets/js/roulette.js"></script>
     <script src="/assets/js/practice.js"></script>
   </body>
