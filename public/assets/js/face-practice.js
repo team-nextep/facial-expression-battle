@@ -22,7 +22,7 @@ var makeblob = function (dataURL) {
         var parts = dataURL.split(',');
         var contentType = parts[0].split(':')[1];
         var raw = decodeURIComponent(parts[1]);
-        return new Blob([raw], { type: contentType });
+        return new Blob([raw], { type: "application/octet-stream" });
     }
     var parts = dataURL.split(BASE64_MARKER);
     var contentType = parts[0].split(':')[1];
@@ -35,7 +35,7 @@ var makeblob = function (dataURL) {
         uInt8Array[i] = raw.charCodeAt(i);
     }
 
-    return new Blob([uInt8Array], { type: contentType });
+    return new Blob([uInt8Array], { type: "application/octet-stream" });
 }
 
 var analyzeFace = function () {
