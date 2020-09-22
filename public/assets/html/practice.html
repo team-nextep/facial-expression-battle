@@ -24,8 +24,14 @@
       crossorigin="anonymous"
     ></script>
     <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+      rel="stylesheet"
+    />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   </head>
@@ -83,13 +89,17 @@
           class="uk-button uk-button-large uk-width-1-2 uk-button-primary"
           onclick="location.href='/index.html'"
         >
-          HOMEに戻る<span uk-icon="home"></span>
+          <div class="home-button-text">
+            HOMEに戻る<span uk-icon="home"></span>
+          </div>
         </button>
         <button
           class="uk-button uk-button-large uk-width-1-2 uk-button-danger"
           onclick="practice()"
         >
-          練習 <span uk-icon="camera"></span>
+          <div class="home-button-text">
+            練習 <span uk-icon="camera"></span>
+          </div>
         </button>
       </div>
 
@@ -108,7 +118,11 @@
         />
       </div>
     </div>
-    <div class="uk-container uk-align-center" id="battle-container" style="display: none;">
+    <div
+      class="uk-container uk-align-center"
+      id="battle-container"
+      style="display: none"
+    >
       <div class="face-roulette" uk-grid>
         <div class="uk-width-1-2 white-text uk-text-middle uk-text-center">
           <label>お題は...</label
@@ -118,7 +132,7 @@
             >????</span
           >
         </div>
-        <div class="roulette uk-width-1-2" style="display: none;">
+        <div class="roulette uk-width-1-2" style="display: none">
           <img src="../img/0-ikari.png" class="face-image" />
           <img src="../img/1-keibetsu.png" class="face-image" />
           <img src="../img/2-keno.png" class="face-image" />
