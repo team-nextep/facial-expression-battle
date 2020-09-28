@@ -11,7 +11,9 @@ var practice = function () {
 
 var playRoulette = function (stopImageNumber) {
   var p = {
-    startCallback: function () {},
+    startCallback: function () {
+      resetFaceText();
+    },
     slowDownCallback: function () {},
     stopCallback: function () {
       showFaceText(stopImageNumber);

@@ -117,6 +117,10 @@ var showFaceText = function(stopImageNumber) {
     target.textContent = targetFacialExpression;
 }
 
+var resetFaceText = function() {
+    document.getElementById("target-facial-expression").textContent = "????";
+}
+
 var countDown = function () {
     $("#countdown-animation").toggle();
     var count = 3;
