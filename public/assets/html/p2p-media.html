@@ -81,25 +81,35 @@
       </div>
       <div class="uk-flex uk-flex-center">
         <button
+          class="uk-button uk-button-large uk-width-1-3 uk-button-secondary"
+          onclick="location.href='/index.html'"
+        >
+          <div class="home-button-text">
+            HOMEに戻る<span uk-icon="home"></span>
+          </div>
+        </button>
+        <button
           id="invite-button"
-          class="uk-button uk-button-large uk-width-1-2 uk-button-primary"
+          class="uk-button uk-button-large uk-width-1-3 uk-button-primary"
           data-clipboard-text=""
           onClick="invite()"
           disabled
         >
-          招待 <span uk-icon="copy"></span>
+          <div class="home-button-text">招待 <span uk-icon="copy"></span></div>
         </button>
         <button
-          class="uk-button uk-button-large uk-width-1-2 uk-button-danger"
+          class="uk-button uk-button-large uk-width-1-3 uk-button-danger"
           onclick="processImage()"
         >
-          バトル <span uk-icon="camera"></span>
+          <div class="home-button-text">
+            バトル <span uk-icon="camera"></span>
+          </div>
         </button>
       </div>
     </div>
     <div class="uk-container uk-align-center">
       <div class="face-roulette" uk-grid>
-        <div class="uk-width-1-2 face-text uk-text-middle uk-text-center">
+        <div class="uk-width-1-2 white-text uk-text-middle uk-text-center">
           <label>お題は...</label
           ><span
             id="target-facial-expression"
@@ -107,7 +117,7 @@
             >????</span
           >
         </div>
-        <div class="roulette uk-width-1-2" style="display: none;">
+        <div class="roulette uk-width-1-2" style="display: none">
           <img src="../img/0-ikari.png" class="face-image" />
           <img src="../img/1-keibetsu.png" class="face-image" />
           <img src="../img/2-keno.png" class="face-image" />
