@@ -1,6 +1,6 @@
 var captures = [];
 var emotionResults = [];
-// var facialExpressionLabel = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
+var facialExpressionKey = ["anger", "contempt", "disgust", "fear", "happiness", "neutral", "sadness", "surprise"];
 var facialExpressionLabel = ["怒り", "軽蔑", "嫌悪", "恐怖", "嬉しい", "真顔", "悲しい", "驚き"];
 
 var subscriptionKey = window.__FACEAPI_KEY__;
@@ -130,9 +130,9 @@ var decideFacialExpression = function() {
 }
 
 var showFaceText = function(stopImageNumber) {
-    targetFacialExpression = facialExpressionLabel[stopImageNumber];
+    targetFacialExpression = facialExpressionKey[stopImageNumber];
     var target = document.getElementById("target-facial-expression");
-    target.textContent = targetFacialExpression;
+    target.textContent = facialExpressionLabel[stopImageNumber];
 }
 
 var judgeBattleResult = function () {
