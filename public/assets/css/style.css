@@ -1,8 +1,9 @@
 /* normalize */
 
-
-html, body {
-  background-color: #32386D !important;
+html,
+body {
+  /* background-color: #32386D !important; */
+  background-image: linear-gradient(-225deg, #7de2fc 0%, #b9b6e5 100%);
 }
 
 .home-button-text {
@@ -50,7 +51,7 @@ img {
 
 .meta {
   text-align: center;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: gray;
 }
 
