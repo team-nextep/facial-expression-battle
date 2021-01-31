@@ -174,7 +174,7 @@ var judgeBattleResult = function () {
     message = "あなたの勝ち！！！";
     status = "primary";
     var soundBattleResult = new Audio("/assets/sound/win.mp3");
-    confetti.start();
+    confetti.start(5000, 1000);
   } else if (localScore < remoteScore) {
     message = "あなたの負け・・・";
     status = "danger";
@@ -191,8 +191,6 @@ var judgeBattleResult = function () {
     pos: "bottom-center",
     timeout: 10000,
   });
-
-  confetti.start(5000, 1000);
 
   soundBattleResult.play();
 };
