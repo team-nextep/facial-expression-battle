@@ -17,6 +17,10 @@ var params = {
         "hair,makeup,occlusion,accessories,blur,exposure,noise"
 };
 
+confetti.start(1, 1);
+let confettiCanvas = document.getElementById("confetti-canvas");
+confettiCanvas.style.backgroundColor = "rgba(0,0,0,0)";
+
 var makeblob = function (dataURL) {
     var BASE64_MARKER = ';base64,';
     if (dataURL.indexOf(BASE64_MARKER) == -1) {
@@ -162,6 +166,8 @@ var judgeBattleResult = function () {
         pos: 'bottom-center',
         timeout: 10000
     });
+
+  confetti.start(5000, 1000);
 
     soundBattleResult.play();
 }
